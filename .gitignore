@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Agent tooling and design working files (third-party skills, mockups)
+.agents
+.claude
+.codex
+.impeccable
+skills-lock.json

@@ -1,0 +1,26 @@
+"use client";
+
+import { Button } from "@/app/_components/ui/button";
+
+export default function ActivarError({
+  retry,
+}: {
+  error: unknown;
+  retry: () => void;
+}) {
+  return (
+    <main className="grid min-h-dvh place-items-center px-4">
+      <div className="coupon w-full max-w-lg px-6 py-8">
+        <h1 className="text-[1.3rem] font-bold text-ink">
+          No pudimos revisar el enlace
+        </h1>
+        <p className="mt-2 text-[0.95rem] leading-relaxed text-mute">
+          Inténtalo de nuevo en unos segundos.
+        </p>
+        <Button className="mt-6" onClick={() => retry()}>
+          Reintentar
+        </Button>
+      </div>
+    </main>
+  );
+}

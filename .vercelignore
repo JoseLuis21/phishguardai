@@ -1,0 +1,10 @@
+# Local secrets
+.env*
+
+# Agent tooling and design working files, not app source
+.agents
+.claude
+.codex
+.impeccable
+skills-lock.json
+docs

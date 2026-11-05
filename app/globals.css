@@ -1,26 +1,400 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * PhishGuardAI — "The Coupon Booklet".
+ * Light by default: printed stock on a lit desk. Dark is the night shift:
+ * the same booklet under a desk lamp. The theme lives in html[data-theme],
+ * set before paint by the script in the root layout.
+ */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /* World */
+  --navy: #1b2a52;
+  --navy-deep: #121d3b;
+  --navy-ink: #c9d1e6;
+  --jet-red: #b42029;
+  --carbon: #4b3a7a;
+  --carbon-copy: #ebe5f5;
+  --carbon-copy-rule: #cbbfe3;
+  --stock: #fbfaf6;
+  --ground: #e8eaef;
+  --hairline: #c9ced8;
+  --ink: #1c2033;
+  --mute: #4f566a;
+  --amber: #8a5a00;
+  --green: #1f6b43;
+  --slate: #555b6e;
+
+  /* Shell (navy bar) and text set on filled controls. */
+  --shell: #1b2a52;
+  --shell-rule: #2f3f6b;
+  --shell-border: #5a6a94;
+  --shell-figure: #cbbfe3;
+  --on-navy: #ffffff;
+  --on-red: #ffffff;
+  --jet-red-deep: #8f1820;
+  --field: #ffffff;
+  --tint: #e3e6ee;
+  --hairline-strong: #9aa2b4;
+
+  /* shadcn roles mapped onto the world */
+  --background: var(--ground);
+  --foreground: var(--ink);
+  --card: var(--stock);
+  --card-foreground: var(--ink);
+  --popover: var(--stock);
+  --popover-foreground: var(--ink);
+  --primary: var(--navy);
+  --primary-foreground: var(--on-navy);
+  --secondary: #f1f2f5;
+  --secondary-foreground: var(--navy);
+  --muted: #f1f2f5;
+  --muted-foreground: var(--mute);
+  --accent: #eef0f5;
+  --accent-foreground: var(--navy);
+  --destructive: var(--jet-red);
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--navy);
+  --radius: 2px;
+}
+
+/* Night shift: same roles, inks lifted to hold contrast on dark stock. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --navy: #a9b9ea;
+  --navy-deep: #c7d2f3;
+  --navy-ink: #c9d1e6;
+  --jet-red: #f0646b;
+  --carbon: #b9a8ec;
+  --carbon-copy: #211b36;
+  --carbon-copy-rule: #3f3563;
+  --stock: #151c30;
+  --ground: #0d1322;
+  --hairline: #2d3753;
+  --ink: #e7e9f1;
+  --mute: #a2a9bd;
+  --amber: #e0a644;
+  --green: #5cc58f;
+  --slate: #a3a9bb;
+
+  --shell: #0a0f1d;
+  --shell-rule: #26314f;
+  --shell-border: #46547c;
+  --shell-figure: #cbbfe3;
+  --on-navy: #10182f;
+  --on-red: #1c0c0e;
+  --jet-red-deep: #f58a8f;
+  --field: #0f1527;
+  --tint: #222b48;
+  --hairline-strong: #4a5576;
+
+  --secondary: #1c2440;
+  --muted: #1c2440;
+  --accent: #1c2440;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-ink: var(--navy-ink);
+  --color-jet-red: var(--jet-red);
+  --color-carbon: var(--carbon);
+  --color-carbon-copy: var(--carbon-copy);
+  --color-carbon-copy-rule: var(--carbon-copy-rule);
+  --color-stock: var(--stock);
+  --color-ground: var(--ground);
+  --color-hairline: var(--hairline);
+  --color-shell: var(--shell);
+  --color-shell-rule: var(--shell-rule);
+  --color-shell-border: var(--shell-border);
+  --color-shell-figure: var(--shell-figure);
+  --color-on-navy: var(--on-navy);
+  --color-on-red: var(--on-red);
+  --color-jet-red-deep: var(--jet-red-deep);
+  --color-field: var(--field);
+  --color-tint: var(--tint);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-amber: var(--amber);
+  --color-green: var(--green);
+  --color-slate: var(--slate);
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 3px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    scrollbar-color: var(--hairline) transparent;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  ::selection {
+    background: var(--carbon-copy);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+  }
+  input,
+  textarea {
+    caret-color: var(--carbon);
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  /* Tailwind v4 dropped the pointer on buttons; every clickable gets it back. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary,
+  select:not(:disabled),
+  label[for],
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="submit"]:not(:disabled) {
+    cursor: pointer;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Condensed caps used on coupon heads, tabs, stamps and buttons. */
+  .tab-caps {
+    font-stretch: 75%;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Every figure is set in carbon, with tabular numerals. */
+  .carbon {
+    color: var(--carbon);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Perforation: the dashed tear line between stub and coupon. */
+  .perforation-y {
+    background-image: linear-gradient(var(--hairline) 55%, transparent 0);
+    background-size: 2px 10px;
+    background-repeat: repeat-y;
+    background-position: center;
+    width: 2px;
+  }
+  .perforation-x {
+    background-image: linear-gradient(90deg, var(--hairline) 55%, transparent 0);
+    background-size: 10px 2px;
+    background-repeat: repeat-x;
+    background-position: center;
+    height: 2px;
+  }
+
+  /* Half-circle notches where the perforation meets the coupon edges. */
+  .perforation-notch {
+    position: relative;
+    overflow: visible;
+  }
+  .perforation-notch::before,
+  .perforation-notch::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+    border-radius: 50%;
+    background: var(--ground);
+    border: 1px solid var(--hairline);
+  }
+  .perforation-notch::before {
+    top: -10px;
+  }
+  .perforation-notch::after {
+    bottom: -10px;
+  }
+
+  /* Critical analyses carry a red corner notch on their stub. */
+  .notch-critico::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 20px;
+    height: 20px;
+    background: var(--jet-red);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    pointer-events: none;
+  }
+
+  /* Coupon stock. */
+  .coupon {
+    background: var(--stock);
+    border: 1px solid var(--hairline);
+  }
+  .coupon-copy {
+    background: var(--carbon-copy);
+    border: 1px solid var(--carbon-copy-rule);
+  }
+
+  /* Stamp: state is carried by text and line form, never by hue alone. */
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    border: 2px solid currentColor;
+    padding: 0.18em 0.5em 0.12em;
+    font-stretch: 75%;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.1;
+    white-space: nowrap;
+    transform: rotate(-3deg);
+  }
+  .stamp[data-linea="discontinua"] {
+    border-style: dashed;
+  }
+  .stamp[data-linea="tachada"] {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+  .stamp[data-tono="peligro"] {
+    color: var(--jet-red);
+  }
+  .stamp[data-tono="alerta"] {
+    color: var(--amber);
+  }
+  .stamp[data-tono="seguro"] {
+    color: var(--green);
+  }
+  .stamp[data-tono="neutro"] {
+    color: var(--slate);
+  }
+  .stamp[data-tono="tinta"] {
+    color: var(--navy);
+  }
+
+  .stamp-in {
+    animation: stamp-in 420ms var(--ease-out-expo) both;
+  }
+
+  /* A new row in the coupon's history lands like a stamp, then sits straight. */
+  .timbre-in {
+    animation: timbre-in 520ms var(--ease-out-expo) both;
+    transform-origin: 0 50%;
+  }
+}
+
+@keyframes timbre-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-6deg) scale(1.35);
+    filter: blur(2px);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-9deg) scale(1.55);
+    filter: blur(2px);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-3deg) scale(1);
+  }
+}
+
+@layer components {
+  /* Auth-screen ground: mail routes in Hairline with a short navy or carbon
+     pulse travelling each one (see RutasFondo). Dash offset only. */
+  .rutas-fondo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .ruta-pulso {
+    stroke-dasharray: 8 100;
+    stroke-dashoffset: 8;
+    opacity: 0.55;
+    animation-name: ruta-viaje;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes ruta-viaje {
+  from {
+    stroke-dashoffset: 8;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp-in,
+  .timbre-in {
+    animation: none;
+  }
+  /* Routes stay drawn; only the travelling pulse goes away. */
+  .ruta-pulso {
+    display: none;
+  }
 }
